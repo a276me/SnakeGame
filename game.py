@@ -10,6 +10,8 @@ class Player:
     def __init__(self, name, score) -> None:
         self.name = name
         self.score = score
+    def __repr__(self) -> str:
+        return f'score: {self.score}; name: {self.name}'
 
 
 # Difficulty settings
@@ -69,6 +71,23 @@ INGAME = False
 INPUTING = False
 SCOREBOARD = []
 
+try:
+    f = open('leaderboard')
+    lines = f.read().split('\n')
+    for i in lines:
+        if len(i)<1:
+            continue
+        SCOREBOARD.append(Player(i.split('|')[0], int(i.split('|')[1])))
+except OSError:
+    print('error loading scoreboard')
+
+def export():
+    f = open('leaderboard', 'w')
+    lines =[]
+    for i in SCOREBOARD:
+        lines.append(f'{i.name}|{i.score}')
+    f.write('\n'.join(lines))
+
 
 
 # Game Over
@@ -84,6 +103,7 @@ def game_over():
     s = Player('a', score)
 
     sc.append(s)
+    print(sc)
     sc.sort(key=lambda c: c.score, reverse=True)
 
     ranking = 0
@@ -252,6 +272,8 @@ def main():
 
                 SCOREBOARD.append(p)
                 SCOREBOARD.sort(key=lambda c: c.score, reverse=True)
+
+                export()
 
                 score = 0
                 name = ''
