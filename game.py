@@ -53,6 +53,9 @@ blue = pygame.Color(0, 0, 255)
 # FPS (frames per second) controller
 fps_controller = pygame.time.Clock()
 
+booo = pygame.mixer.Sound("booo.mp3")
+
+
 
 # Game variables
 snake_pos = [100, 50]
@@ -119,8 +122,9 @@ def game_over():
     game_window.blit(game_over_surface, game_over_rect)
 
     show_score(0, red, 'times', 20)
+    booo.play()
     pygame.display.flip()
-    time.sleep(3)
+    time.sleep(5)
 
     # pygame.quit()
     # sys.exit()
