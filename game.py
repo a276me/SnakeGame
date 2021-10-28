@@ -54,6 +54,9 @@ blue = pygame.Color(0, 0, 255)
 fps_controller = pygame.time.Clock()
 
 booo = pygame.mixer.Sound("booo.mp3")
+bgm = pygame.mixer.Sound("main.mp3")
+
+bgm.play(-1)
 
 
 
@@ -122,9 +125,12 @@ def game_over():
     game_window.blit(game_over_surface, game_over_rect)
 
     show_score(0, red, 'times', 20)
+    bgm.stop()
     booo.play()
     pygame.display.flip()
-    time.sleep(5)
+    time.sleep(9)
+
+    bgm.play(-1)
 
     # pygame.quit()
     # sys.exit()
